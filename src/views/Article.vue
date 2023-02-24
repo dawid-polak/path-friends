@@ -4,15 +4,15 @@
           <img class="mainImg" :src="artilceData.mainImg" :alt="artilceData.title" />
           <div class="mt-10">
                <div class="hero-content justify-start">
-                    <div class="max-w-xl">
-                         <h1 class="mb-5 text-5xl font-bold font-serif">{{ artilceData.title }}</h1>
-                         <p class="mb-5 max-w-xl font-serif text-justify">{{ artilceData.description }}</p>
+                    <div class="">
+                         <h1 class="mb-5 text-5xl font-bold">{{ artilceData.title }}</h1>
+                         <p class="mb-5">{{ artilceData.description }}</p>
                     </div>
                </div>
           </div>
           <div class="content max-w-2xl m-auto">
-               <p class="mt-10 mx-8 font-serif text-lg font-thin">{{ artilceData.content }}</p>
-               <p class="mx-8 my-3 text-sm text-neutral">{{ artilceData.author }}</p>
+               <p class="mt-10 mx-8 text-justify text-lg">{{ artilceData.content }}</p>
+               <p class="mx-8 my-3 text-sm">{{ artilceData.author }}</p>
           </div>
           <div class="max-w-2xl m-auto text-center">
                <button @click="handleUpdateLikes" class="btn btn-outline btn-error gap-2 mx-8 mb-5 mt-5">
@@ -83,6 +83,7 @@ export default {
 <style lang="scss" scoped>
 .article {
      margin-top: 90px;
+     font-family: 'Bungee Inline', cursive;
 
      .mainImg {
           margin-top: -300px;
@@ -100,8 +101,12 @@ export default {
                margin-top: -40px;
           }
      }
-     .hero {
-          height: 400px;
+     .hero-content {
+          font-family: 'Bungee Inline', cursive;
+     }
+
+     .content {
+          font-family: 'Buenard', serif;
      }
 }
 </style>

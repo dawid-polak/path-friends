@@ -17,7 +17,7 @@
                     </div>
                </div>
                <div>
-                    <p>Copyright © 2023 - All right reserved by <a href="http://dawidpolak.pl/" target="_ublank" class="link">Dawid Polak</a></p>
+                    <p>Copyright © 2023 - All right reserved by <a href="http://dawidpolak.pl/" target="_ublank" class="link font-black">Dawid Polak</a></p>
                </div>
           </footer>
 </template>

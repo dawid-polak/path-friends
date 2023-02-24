@@ -10,5 +10,9 @@ import Footer from "./components/Footer.vue";
   <Footer />
 </template>
 
-<style scoped>
+<style>
+
+#app {
+  font-family: 'Bungee Inline', cursive;
+}
 </style>

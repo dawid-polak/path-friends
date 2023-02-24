@@ -7,7 +7,7 @@
                     <h2 class="card-title">
                          <span @click="goToArticle" class="link link-hover">{{ data.title }}</span>
 
-                         <div v-if="data.new" class="badge badge-secondary">NEW</div>
+                         <div v-if="data.new" class="badge badge-secondary badge-new">NEW</div>
                     </h2>
                     <p>{{ data.description }}</p>
 
@@ -17,7 +17,7 @@
                </div>
 
                <div class="flex flex-row-reverse">
-                    <button @click="goToArticle" class="btn btn-outline btn-info m-2 mt-0">czytaj</button>
+                    <button @click="goToArticle" class="btn btn-outline btn-info m-2 mt-0 btn-read">czytaj</button>
 
                     <button @click="handleUpdateLike" class="btn btn-outline btn-error gap-2 m-2 mt-0">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -78,4 +78,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+@import '../style/index.scss';
+
+
+.badge-new {
+     background-color: $mainColor;
+     font-size: 12px;
+     border: 0;
+}
+
+
+
+</style>
