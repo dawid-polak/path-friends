@@ -14,7 +14,7 @@
                <p class="mx-8 my-3 text-sm text-neutral">{{ artilceData.author }}</p>
           </div>
           <div class="max-w-2xl m-auto text-center">
-               <button @click="updateLike" class="btn btn-outline btn-error gap-2 mx-8 mb-5 mt-5">
+               <button @click="handleUpdateLikes" class="btn btn-outline btn-error gap-2 mx-8 mb-5 mt-5">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
@@ -29,6 +29,7 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import mainFirebase from "../firebase/index.js";
 import { doc, getDoc } from "@firebase/firestore";
+import updateLikes from "../firebase/upadateLikes.js";
 
 export default {
      setup() {
@@ -36,6 +37,7 @@ export default {
           const { db } = mainFirebase();
           const idArticle = ref(route.query.idArt);
           const artilceData = ref({});
+          const likesNumber = ref();
 
           // download data article
           const downloadData = async () => {
@@ -44,13 +46,20 @@ export default {
                     const article = await getDoc(docRef);
 
                     artilceData.value = article.data();
+
+                    likesNumber.value = artilceData.value.likes;
                } catch (error) {
                     console.log(error.message);
                }
           };
           downloadData();
 
-          return { artilceData };
+          //updata likes
+          const handleUpdateLikes = () => {
+               updateLikes("articles", idArticle.value, likesNumber.value);
+          };
+
+          return { artilceData, handleUpdateLikes };
      },
 };
 </script>
@@ -63,16 +72,16 @@ export default {
           margin-top: -300px;
           background-size: cover;
 
-          @media only screen and (max-width: 750px){
+          @media only screen and (max-width: 750px) {
                margin-top: -200px;
           }
 
-          @media only screen and (max-width: 550px){
+          @media only screen and (max-width: 550px) {
                margin-top: -100px;
           }
 
-          @media only screen and (max-width: 450px){
-               margin-top: -40px
+          @media only screen and (max-width: 450px) {
+               margin-top: -40px;
           }
      }
      .hero {

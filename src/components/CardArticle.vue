@@ -18,11 +18,11 @@
                <div class="flex flex-row-reverse">
                     <button @click="goToArticle" class="btn btn-outline btn-info m-2 mt-0">czytaj</button>
 
-                    <button @click="updateLike" class="btn btn-outline btn-error gap-2 m-2 mt-0">
+                    <button @click="handleUpdateLike" class="btn btn-outline btn-error gap-2 m-2 mt-0">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                          </svg>
-                         {{ likesNumber }}
+                         {{ likes }}
                     </button>
                </div>
           </div>
@@ -34,6 +34,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import mainFirebase from "../firebase/index.js";
 import { doc, updateDoc } from "firebase/firestore";
+import updateLikes from "../firebase/upadateLikes.js";
 
 export default {
      props: ["data"],
@@ -42,6 +43,7 @@ export default {
           const data = ref(props.data.data());
           const router = useRouter();
           const { db } = mainFirebase();
+          const likes = ref(data.value.likes);
 
           //router
           const goToArticle = () => {
@@ -49,21 +51,17 @@ export default {
           };
 
           //upadata likes
-          const likesNumber = ref(data.value.likes);
-          const updateLike = async () => {
-               const docRef = doc(db, "articles", idArticle.value);
-
-               likesNumber.value = likesNumber.value + 1;
+          const handleUpdateLike = async () => {
                try {
-                    await updateDoc(docRef, {
-                         likes: likesNumber.value,
-                    });
-               } catch (error) {
-                    console.log(error.message);
+                   const { likesNumber } = await updateLikes('articles', idArticle.value, likes.value);
+                   likes.value = likesNumber;
+
+               } catch (err) {
+                    console.log(err.message)
                }
           };
 
-          return { data, goToArticle, updateLike, likesNumber };
+          return { data, goToArticle, handleUpdateLike, likes };
      },
 };
 </script>
