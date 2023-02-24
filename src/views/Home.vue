@@ -1,5 +1,5 @@
 <template>
-     <div class="hero min-h-screen" style="background-image: url('../src/assets/img/home-bg.jpeg')">
+     <div class="hero min-h-screen">
           <div class="hero-overlay bg-opacity-60"></div>
           <div class="hero-content text-center text-neutral-content">
                <div class="max-w-xl">
@@ -18,4 +18,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+.hero {
+     background-image: url(../assets/img/home-bg.jpeg);
+}
+</style>
