@@ -21,6 +21,6 @@ export default {
 <style lang="scss" scoped>
 
 .hero {
-     background-image: url(../assets/img/home-bg.jpeg);
+     background-image: url(https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80);
 }
 </style>
