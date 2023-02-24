@@ -8,6 +8,12 @@
                </div>
           </div>
      </div>
+
+     <div class="invite"> 
+          <h1 class="link font-black text-xl p-20 text-center">
+               <router-link :to="{ name: 'blog' }">Blog</router-link>
+          </h1>
+     </div>
 </template>
 
 <script>
