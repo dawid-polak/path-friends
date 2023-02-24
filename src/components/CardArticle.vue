@@ -1,5 +1,6 @@
 <template>
      <div>
+          <AlertLiking v-if="alertLiking" />
           <div class="card w-80 sm:w-96 bg-base-100 shadow-xl">
                <figure class="h-48"><img class="" :src="data.mainImg" alt="Shoes" /></figure>
                <div class="card-body p-6">
@@ -32,36 +33,47 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import mainFirebase from "../firebase/index.js";
-import { doc, updateDoc } from "firebase/firestore";
 import updateLikes from "../firebase/upadateLikes.js";
+import AlertLiking from "./AlertLiking.vue";
 
 export default {
      props: ["data"],
+     components: {
+          AlertLiking,
+     },
      setup(props) {
-          const idArticle = ref(props.data.id)
+          const idArticle = ref(props.data.id);
           const data = ref(props.data.data());
           const router = useRouter();
-          const { db } = mainFirebase();
           const likes = ref(data.value.likes);
+          const alertLiking = ref(false)
 
           //router
           const goToArticle = () => {
-               router.push({ name: "article", params: { id: data.value.name }, query: {idArt: idArticle.value } });
+               router.push({ name: "article", params: { id: data.value.name }, query: { idArt: idArticle.value } });
           };
 
           //upadata likes
           const handleUpdateLike = async () => {
                try {
-                   const { likesNumber } = await updateLikes('articles', idArticle.value, likes.value);
-                   likes.value = likesNumber;
-
+                    const { likesNumber } = await updateLikes("articles", idArticle.value, likes.value);
+                    likes.value = likesNumber;
+                    showAlertLiking();
                } catch (err) {
-                    console.log(err.message)
+                    console.log(err.message);
                }
           };
+          
+          //show alert liking
+          const showAlertLiking = () => {
+               alertLiking.value = !alertLiking.value;
 
-          return { data, goToArticle, handleUpdateLike, likes };
+               setTimeout(() => {
+                    alertLiking.value = !alertLiking.value;
+               }, 3000)
+          }
+
+          return { data, goToArticle, handleUpdateLike, likes, alertLiking };
      },
 };
 </script>

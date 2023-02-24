@@ -122,6 +122,7 @@ export default {
                     data.value.tags = [];
                     data.value.views = 0;
                     data.value.name = "";
+                    data.value.title = "";
                } catch (err) {
                     error.value = err.message;
                }

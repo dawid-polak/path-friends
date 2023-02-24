@@ -1,4 +1,5 @@
 <template>
+     <AlertLiking v-if="alertLiking" />
      <div class="article max-w-5xl m-auto">
           <img class="mainImg" :src="artilceData.mainImg" :alt="artilceData.title" />
           <div class="mt-10">
@@ -30,14 +31,19 @@ import { useRoute } from "vue-router";
 import mainFirebase from "../firebase/index.js";
 import { doc, getDoc } from "@firebase/firestore";
 import updateLikes from "../firebase/upadateLikes.js";
+import AlertLiking from "../components/AlertLiking.vue";
 
 export default {
+     components: {
+          AlertLiking
+     },
      setup() {
           const route = useRoute();
           const { db } = mainFirebase();
           const idArticle = ref(route.query.idArt);
           const artilceData = ref({});
           const likesNumber = ref();
+          const alertLiking = ref(false)
 
           // download data article
           const downloadData = async () => {
@@ -57,9 +63,19 @@ export default {
           //updata likes
           const handleUpdateLikes = () => {
                updateLikes("articles", idArticle.value, likesNumber.value);
+               showAlertLiking();
           };
 
-          return { artilceData, handleUpdateLikes };
+           //show alert liking
+           const showAlertLiking = () => {
+               alertLiking.value = !alertLiking.value;
+
+               setTimeout(() => {
+                    alertLiking.value = !alertLiking.value;
+               }, 3000)
+          }
+
+          return { artilceData, handleUpdateLikes, alertLiking };
      },
 };
 </script>
